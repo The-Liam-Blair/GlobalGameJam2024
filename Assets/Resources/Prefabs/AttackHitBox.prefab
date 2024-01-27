@@ -115,11 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8929209225595616465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969447abe3904fc42b743ca1766dea2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7547ef5046387ec4c941d3403396e1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 0
-  attackHorizontalForce: 0
-  attackVerticalForce: 0
-  attackHitBoxSize: {x: 0, y: 0}
-  duration: 0
+  attackActive: 0
