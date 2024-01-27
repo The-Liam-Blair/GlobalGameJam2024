@@ -9,13 +9,17 @@ public class GameManager : MonoBehaviour
     private Player player1;
     private Player player2;
 
-    void Start()
+    private void Start()
     { 
         player1 = new Player(Instantiate(playerObject, new Vector3(1, 1, 0), Quaternion.identity), 1);
         player2 = new Player(Instantiate(playerObject, new Vector3(5, 1, 0), Quaternion.identity), 2);
     }
 
-    public Player AssignPlayerToInput()
+    /// <summary>
+    /// Dynamically assign the WASD or arrow key control scheme to each player.
+    /// </summary>
+    /// <returns>Player class reference.</returns>
+    public Player AssignInputToPlayer()
     {
         if (!player1.isAssignedInput) {  player1.isAssignedInput = true; return player1; }
         else if (!player2.isAssignedInput) { player2.isAssignedInput = true; return player2; }

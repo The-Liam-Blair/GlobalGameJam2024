@@ -10,22 +10,28 @@ public class PlayerInput : MonoBehaviour
     private string XInput;
     private string YInput;
 
+    private float MovementScalar;
+
     private void Start()
     {
         GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        player = manager.AssignPlayerToInput();
+        // Fetch the input scheme from the game manager.
+        player = manager.AssignInputToPlayer();
         XInput = player.horizontalInput;
         YInput = player.verticalInput;
-        Debug.Log($"Player {player.id}, {XInput} : {YInput}");
+
+        // Movement speed multiplier of the player.
+        MovementScalar = 400;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         MovementInput.x = Input.GetAxisRaw(XInput);
         MovementInput.y = Input.GetAxisRaw(YInput);
 
-        transform.Translate(MovementInput * 0.1f);
+        // Velocity required for good and stable collisions between moving objects.
+        // Velocity is set per frame, regardless of input, to halt all acceleration/deceleration after an input from RigidBody movement.
+        gameObject.GetComponent<Rigidbody>().velocity = MovementInput * MovementScalar * Time.fixedDeltaTime;
     }
 }

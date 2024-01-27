@@ -7,33 +7,40 @@ public class Player
     public int id { get; private set; }
     public int health { get; private set; }
 
+
+    // Control schemes per player, direct string references to the name of the inputs in the input manager.
     public string horizontalInput { get; private set; }
     public string verticalInput { get; private set; }
 
-    public GameObject gameObject { get; set; }
 
+    // Reference to the player game object.
+    public GameObject playerObject { get; private set; }
+
+
+    // Used by the game manager to assign each set of inputs to each player.
     public bool isAssignedInput { get; set; } = false;
 
-    public Player(GameObject obj, int _id)
+    public Player(GameObject _playerObject, int _id)
     {
-        gameObject = obj;
+        playerObject = _playerObject;
         id = _id;
         health = 100;
 
-        if (id == 1)
+        switch (id)
         {
-            horizontalInput = "P1Horizontal";
-            verticalInput = "P1Vertical";
-        }
-        else if (id == 2)
-        {
-            horizontalInput = "P2Horizontal";
-            verticalInput = "P2Vertical";
-        }
+            case 1:
+                horizontalInput = "P1Horizontal";
+                verticalInput = "P1Vertical";
+                break;
 
-        else
-        {
-            Debug.Log("Player constructor received a id that is out of the expected range.");
+            case 2:
+                horizontalInput = "P2Horizontal";
+                verticalInput = "P2Vertical";
+                break;
+
+            default:
+                Debug.Log("Player constructor received a id that is out of the expected range.");
+                break;
         }
     }
 }
