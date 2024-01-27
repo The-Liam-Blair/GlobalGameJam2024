@@ -20,7 +20,6 @@ public class GMScript : MonoBehaviour
     
     void Update()
     {
-
         if (p1Health.value <= 0)
         {
             //Player 1 wins
@@ -35,14 +34,26 @@ public class GMScript : MonoBehaviour
             VictoryMenu.SetActive(true);
             P1Victory.enabled = false;
         }
-            
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    p1Health.GetComponent<HealthBarScripts>().Health(10);
+        //}
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    p2Health.GetComponent<HealthBarScripts>().Health(10);
+        //}
+
+        if (VictoryMenu.activeSelf == true)
         {
-            p1Health.GetComponent<HealthBarScripts>().Health(10);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            p2Health.GetComponent<HealthBarScripts>().Health(10);
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+
+            }
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+
+            }
         }
     }
 }

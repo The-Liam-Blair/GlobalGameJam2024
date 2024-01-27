@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
+    private bool paused;
+
     void Start()
     {
         
@@ -13,7 +15,18 @@ public class PauseScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0;
+            if (paused == false)
+            {
+                Time.timeScale = 0;
+                paused = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                paused = false;
+            }
         }
     }
+
+
 }
