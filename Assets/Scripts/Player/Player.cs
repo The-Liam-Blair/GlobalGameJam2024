@@ -14,6 +14,7 @@ public class Player
     public string horizontalInput { get; private set; }
     public string verticalInput { get; private set; }
 
+    public string PunchInput { get; private set; }
 
     // Reference to the player game object.
     public GameObject playerObject { get; private set; }
@@ -27,11 +28,22 @@ public class Player
     // Used to position the hitbox of attacks.
     public bool isFacingRight { get; set; } = true;
 
+    private HealthBarScripts Health;
+
     public Player(GameObject _playerObject, int _id)
     {
         playerObject = _playerObject;
         id = _id;
         health = 100;
+
+        if (id == 1)
+        {
+            Health = GameObject.Find("P1 Back").GetComponent<HealthBarScripts>();
+        }
+        else if (id == 2)
+        {
+            Health = GameObject.Find("P2 Back").GetComponent<HealthBarScripts>();
+        }
 
         AttackHitBox = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AttackHitBox"),
             playerObject.transform.position + (isFacingRight ? Vector3.right : Vector3.left),
@@ -44,11 +56,13 @@ public class Player
             case 1:
                 horizontalInput = "P1Horizontal";
                 verticalInput = "P1Vertical";
+                PunchInput = "P1Punch";
                 break;
 
             case 2:
                 horizontalInput = "P2Horizontal";
                 verticalInput = "P2Vertical";
+                PunchInput = "P2Punch";
                 break;
 
             default:
@@ -61,9 +75,20 @@ public class Player
     {
         health -= incDamage;
 
+        if (id == 1)
+        {
+            Health.Health(incDamage);
+        }
+        else if (id == 2)
+        {
+            Health.Health(incDamage);
+        }
+
         if (health <= 0)
         {
+            Debug.Log("Player " + id + " has died" + " and has " + health + " health remaining." + " " + incDamage);
             // die?
+            playerObject.GetComponent<PlayerInput>().Die();
         }
     }
 }

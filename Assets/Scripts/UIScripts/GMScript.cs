@@ -14,10 +14,10 @@ public class GMScript : MonoBehaviour
     public TMP_Text P2Victory;
 
     private int selected;
-    public RawImage selector;
+    //public RawImage selector;
 
-    public TMP_Text button1;
-    public TMP_Text button2;
+    //public TMP_Text button1;
+    //public TMP_Text button2;
 
     void Start()
     {
@@ -50,6 +50,7 @@ public class GMScript : MonoBehaviour
             p2Health.GetComponent<HealthBarScripts>().Health(10);
         }
 
+        /*
         if (VictoryMenu.activeSelf == true)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -91,5 +92,6 @@ public class GMScript : MonoBehaviour
                 }
             }
         }
+        */
     }
 }

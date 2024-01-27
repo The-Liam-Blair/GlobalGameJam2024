@@ -32,20 +32,24 @@ public class PlayerAttackHitBox : MonoBehaviour
     private void Start()
     {
         hitBox = gameObject.GetComponent<BoxCollider>();
-        
-        // Deactivate attack also can serve to initialize all the variables to standard values.
-        DeactivateAttack();
+
+        attackDamage = 0;
+
+        attackHorizontalForce = 0;
+        attackVerticalForce = 0;
+
+        duration = 0;
+
+        attackActive = false;
+        hitBox.size = Vector2.zero;
+        gameObject.transform.localScale = Vector3.zero;
+        hitBox.enabled = false;
 
         playerInput = transform.parent.GetComponent<PlayerInput>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PrepareNextAttack(10, 20, 5, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
-        }
-
         if (attackActive)
         {
 
@@ -85,19 +89,19 @@ public class PlayerAttackHitBox : MonoBehaviour
                 case > 0.66f:
                     isPerformingSpinAttack = true;
                     float duration = ChargeDuration * 0.5f;
-                    Mathf.Clamp(duration, 2f, 5f);
+                    Mathf.Clamp(duration, 2f, 4f);
 
-                    int damage = (int) Mathf.Floor(ChargeDuration * 4);
-                    Mathf.Clamp(damage, 1, 30);
+                    int damage = (int) Mathf.Floor(ChargeDuration * 8);
+                    Mathf.Clamp(damage, 1, 40);
 
-                    float Hforce = ChargeDuration * 40;
-                    float Vforce = ChargeDuration * 10;
+                    float Hforce = ChargeDuration * 60;
+                    float Vforce = ChargeDuration * 30;
 
                     PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration);
                     Debug.Log($"Spin attack! Duration: {duration}, Damage: {damage}, Hforce: {Hforce}, Vforce: {Vforce}");
                     break;
-            }
-
+            } 
+            chargeAniPlaying = false;
             ChargeDuration = 0;
         }
     }
@@ -127,6 +131,11 @@ public class PlayerAttackHitBox : MonoBehaviour
         isPreparingSpinAttack = true;
     }
 
+    public void PreparePunchAttack()
+    {
+        PrepareNextAttack(15, 40, 20, new Vector3(0.8f, 0.5f, 1f), 1f);
+    }
+
     private void DeactivateAttack()
     {
         attackDamage = 0;
@@ -144,6 +153,8 @@ public class PlayerAttackHitBox : MonoBehaviour
         {
             isPerformingSpinAttack = false;
         }
+
+        playerInput.anim.Play("_P1 Idle");
 
         // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = Vector3.zero;
@@ -169,6 +180,7 @@ public class PlayerAttackHitBox : MonoBehaviour
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
 
             DeactivateAttack();
+            duration = 0f;
         }
     }
 }

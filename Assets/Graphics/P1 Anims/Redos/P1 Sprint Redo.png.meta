@@ -113,10 +113,10 @@ TextureImporter:
       name: P1 Sprint Redo_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 466
-        width: 407
-        height: 466
+        x: 32
+        y: 536
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: P1 Sprint Redo_1
       rect:
         serializedVersion: 2
-        x: 407
-        y: 466
-        width: 407
-        height: 466
+        x: 421
+        y: 512
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: P1 Sprint Redo_2
       rect:
         serializedVersion: 2
-        x: 814
-        y: 466
-        width: 407
-        height: 466
+        x: 839
+        y: 536
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: P1 Sprint Redo_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 407
-        height: 466
+        x: 32
+        y: 70
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: P1 Sprint Redo_4
       rect:
         serializedVersion: 2
-        x: 407
-        y: 0
-        width: 407
-        height: 466
+        x: 421
+        y: 46
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: P1 Sprint Redo_5
       rect:
         serializedVersion: 2
-        x: 814
-        y: 0
-        width: 407
-        height: 466
+        x: 835
+        y: 95
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

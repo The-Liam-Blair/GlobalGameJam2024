@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private string XInput;
     private string YInput;
+    private string PunchInput;
 
     private float MovementScalar;
 
@@ -16,6 +17,8 @@ public class PlayerInput : MonoBehaviour
 
     private bool IsTouchingGround = false;
     private float GravityMultiplier;
+
+    private Player otherPlayer;
 
     public Animator anim;
 
@@ -27,12 +30,15 @@ public class PlayerInput : MonoBehaviour
         player = manager.AssignInputToPlayer();
         XInput = player.horizontalInput;
         YInput = player.verticalInput;
+        PunchInput = player.PunchInput;
 
         // Movement speed multiplier of the player.
         MovementScalar = 120;
         GravityMultiplier = 0f;
 
         anim = GetComponent<Animator>();
+
+        otherPlayer = manager.GetOtherPlayerReference(player.id);
     }
 
     private void FixedUpdate()
@@ -75,6 +81,12 @@ public class PlayerInput : MonoBehaviour
             player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareSpinAttack();
         }
 
+        else if (MovementInput.y > 0 && IsTouchingGround)
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
+            
+        }
+
         // Set facing direction to movement direction.
         // Note that a speed of 0 does not change the facing direction, retaining the last direction.
         switch (MovementInput.x)
@@ -96,14 +108,22 @@ public class PlayerInput : MonoBehaviour
         {
             float duration = player.AttackHitBox.GetComponent<PlayerAttackHitBox>().duration;
             StartCoroutine(KnockbackVulnerability(duration));
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(duration * (player.isFacingRight ? 5 : -5), 0, 0), ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(duration * (player.isFacingRight ? 4 : -4), 0, 0), ForceMode.Impulse);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (otherPlayer.health <= 0)
+        {
+            anim.Play("_P1 Laugh");
+            GetComponent<Rigidbody>().detectCollisions = false;
+            IsMovementDisabled = true;
+        }
+
+        if (Input.GetAxisRaw(PunchInput) > 0 && !player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
         {
             if (!player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
             {
-                player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareNextAttack(50, 10, 10, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
+                anim.Play("_P1 Punch");
+                player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PreparePunchAttack();
             }
         }
     }
@@ -113,13 +133,18 @@ public class PlayerInput : MonoBehaviour
         player.TakeDamage(incDamage);
     }
 
+    public void Die()
+    {
+        StartCoroutine(DeathAnimation());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Wall"))
         {
-            Debug.Log("Yay");
             Vector3 oppositeVel = gameObject.GetComponent<Rigidbody>().velocity;
             oppositeVel.x *= -1;
+            oppositeVel.y *= -1;
 
             gameObject.GetComponent<Rigidbody>().AddForce(oppositeVel * 2, ForceMode.Impulse);
         }
@@ -133,6 +158,17 @@ public class PlayerInput : MonoBehaviour
 
         IsMovementDisabled = false;
         gameObject.GetComponent<Rigidbody>().drag = 15f;
+        yield return null;
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        yield return new WaitForSeconds(0.33f);
+        anim.Play("_P1 KO");
+        IsMovementDisabled = true;
+        
+        yield return new WaitForSeconds(0.2f);
+        GetComponent<Rigidbody>().detectCollisions = false;
         yield return null;
     }
 }
