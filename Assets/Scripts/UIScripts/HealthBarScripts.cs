@@ -14,6 +14,7 @@ public class HealthBarScripts : MonoBehaviour
     void Start()
     {
         healthBar.value = health;
+        healthBar.maxValue = health;
     }
 
     void Update()
