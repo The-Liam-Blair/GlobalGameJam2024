@@ -27,6 +27,8 @@ public class PlayerAttackHitBox : MonoBehaviour
     public bool isPerformingSpinAttack = false;
     private float SpinDuration;
 
+    private bool chargeAniPlaying = false;
+
     private void Start()
     {
         hitBox = gameObject.GetComponent<BoxCollider>();
@@ -59,8 +61,15 @@ public class PlayerAttackHitBox : MonoBehaviour
         {
             if (playerInput.MovementInput is { x: 0f, y: < 0f })
             {
-                Debug.Log($"Spinning... {ChargeDuration}");
+                //Debug.Log($"Spinning... {ChargeDuration}");
                 ChargeDuration += Time.deltaTime;
+
+                if (!chargeAniPlaying)
+                {
+                    Debug.Log("ani!");
+                    playerInput.anim.Play("_P1 Sprint");
+                    chargeAniPlaying = true;
+                }
             }
             else if (playerInput.MovementInput.x != 0f || playerInput.MovementInput.y >= 0f)
             {
@@ -151,8 +160,10 @@ public class PlayerAttackHitBox : MonoBehaviour
             // for the y axis is an extremely small number from a tiny y value difference.
             Vector2 knockbackForce = new Vector2(attackHorizontalForce, 0) * normalizedDirection;
             knockbackForce.y = attackVerticalForce;
-            
+
             other.gameObject.GetComponent<PlayerInput>().TakeDamage(attackDamage);
+            other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
+
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
             
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
