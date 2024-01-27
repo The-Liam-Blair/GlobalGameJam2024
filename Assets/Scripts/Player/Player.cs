@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mail;
+using UnityEditor.SceneTemplate;
 using UnityEngine;
 
 public class Player
 {
-    public int id { get; private set; }
+    public int id { get; }
     public int health { get; private set; }
 
 
@@ -16,15 +18,29 @@ public class Player
     // Reference to the player game object.
     public GameObject playerObject { get; private set; }
 
+    public GameObject AttackHitBox { get; private set; }
+
 
     // Used by the game manager to assign each set of inputs to each player.
     public bool isAssignedInput { get; set; } = false;
+
+    public bool isHurt { get; set; } = false;
+
+    
+    // Used to position the hitbox of attacks.
+    public bool isFacingRight { get; set; } = true;
 
     public Player(GameObject _playerObject, int _id)
     {
         playerObject = _playerObject;
         id = _id;
         health = 100;
+
+        AttackHitBox = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AttackHitBox"),
+            playerObject.transform.position + (isFacingRight ? Vector3.right : Vector3.left),
+            Quaternion.identity);
+
+        AttackHitBox.transform.parent = playerObject.transform;
 
         switch (id)
         {
