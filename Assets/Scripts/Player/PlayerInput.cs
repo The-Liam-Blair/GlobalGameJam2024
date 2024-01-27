@@ -14,6 +14,8 @@ public class PlayerInput : MonoBehaviour
 
     private bool IsMovementDisabled = false;
 
+    private bool IsTouchingGround = false;
+
     private void Start()
     {
         GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -29,6 +31,22 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 0.6f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
+        {
+            IsTouchingGround = true;
+        }
+        else
+        {
+            IsTouchingGround = false;
+        }
+        Debug.DrawRay(transform.position + transform.right, Vector3.down * 0.51f, Color.red);
+        Debug.DrawRay(transform.position - transform.right, Vector3.down * 0.51f, Color.red);
+
+        if (!IsTouchingGround)
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(0, -9.81f, 0, ForceMode.Acceleration);
+        }
+
         MovementInput = Vector2.zero;
 
         if (!IsMovementDisabled)
