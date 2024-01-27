@@ -23,9 +23,6 @@ public class Player
 
     // Used by the game manager to assign each set of inputs to each player.
     public bool isAssignedInput { get; set; } = false;
-
-    public bool isHurt { get; set; } = false;
-
     
     // Used to position the hitbox of attacks.
     public bool isFacingRight { get; set; } = true;
