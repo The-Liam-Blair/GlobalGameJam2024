@@ -6,6 +6,8 @@ public class PauseScript : MonoBehaviour
 {
     private bool paused;
 
+    private int selected;
+
     void Start()
     {
         
@@ -27,6 +29,4 @@ public class PauseScript : MonoBehaviour
             }
         }
     }
-
-
 }
