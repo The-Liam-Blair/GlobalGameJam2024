@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerAttackHitBox : MonoBehaviour
 {
@@ -16,9 +17,15 @@ public class PlayerAttackHitBox : MonoBehaviour
     private Vector2 attackHitBoxSize;
 
     // Time in seconds to fully perform the attack.
-    private float duration;
+    public float duration;
 
     private BoxCollider hitBox;
+    private PlayerInput playerInput;
+
+    public bool isPreparingSpinAttack = false;
+    private float ChargeDuration;
+    public bool isPerformingSpinAttack = false;
+    private float SpinDuration;
 
     private void Start()
     {
@@ -26,6 +33,8 @@ public class PlayerAttackHitBox : MonoBehaviour
         
         // Deactivate attack also can serve to initialize all the variables to standard values.
         DeactivateAttack();
+
+        playerInput = transform.parent.GetComponent<PlayerInput>();
     }
 
     private void Update()
@@ -34,14 +43,53 @@ public class PlayerAttackHitBox : MonoBehaviour
         {
             PrepareNextAttack(50, 10, 10, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
         }
-        
-        if (!attackActive) { return; }
-        
-        duration -= Time.deltaTime;
-        if (duration <= 0f)
+
+        if (attackActive)
         {
-            attackActive = false;
-            DeactivateAttack();
+
+            duration -= Time.deltaTime;
+            if (duration <= 0f)
+            {
+                attackActive = false;
+                DeactivateAttack();
+            }
+        }
+
+        if (isPreparingSpinAttack)
+        {
+            if (playerInput.MovementInput is { x: 0f, y: < 0f })
+            {
+                Debug.Log($"Spinning... {ChargeDuration}");
+                ChargeDuration += Time.deltaTime;
+            }
+            else if (playerInput.MovementInput.x != 0f || playerInput.MovementInput.y >= 0f)
+            {
+                Debug.Log($"Stopped spinning at {ChargeDuration}");
+                isPreparingSpinAttack = false;
+            }
+        }
+
+        if (!isPreparingSpinAttack)
+        {
+            switch (ChargeDuration)
+            {
+                case > 0.66f:
+                    isPerformingSpinAttack = true;
+                    float duration = ChargeDuration * 0.5f;
+                    Mathf.Clamp(duration, 2f, 5f);
+
+                    float damage = ChargeDuration * 4;
+                    Mathf.Clamp(damage, 1, 30);
+
+                    float Hforce = ChargeDuration * 10;
+                    float Vforce = ChargeDuration * 2;
+
+                    PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration);
+                    Debug.Log($"Spin attack! Duration: {duration}, Damage: {damage}, Hforce: {Hforce}, Vforce: {Vforce}");
+                    break;
+            }
+
+            ChargeDuration = 0;
         }
     }
     
@@ -64,6 +112,12 @@ public class PlayerAttackHitBox : MonoBehaviour
         gameObject.transform.localScale = _size;
     }
 
+    public void PrepareSpinAttack()
+    {
+        Debug.Log("Starting spin...");
+        isPreparingSpinAttack = true;
+    }
+
     private void DeactivateAttack()
     {
         attackDamage = 0;
@@ -76,6 +130,11 @@ public class PlayerAttackHitBox : MonoBehaviour
         attackActive = false;
         hitBox.size = Vector2.zero;
         hitBox.enabled = false;
+
+        if (isPerformingSpinAttack)
+        {
+            isPerformingSpinAttack = false;
+        }
 
         // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = Vector3.zero;
@@ -97,6 +156,7 @@ public class PlayerAttackHitBox : MonoBehaviour
             Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(normalizedDirection * 50f, ForceMode.Impulse);
+            StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
         }
     }
 }
