@@ -17,6 +17,8 @@ public class PlayerInput : MonoBehaviour
     private bool IsTouchingGround = false;
     private float GravityMultiplier;
 
+    public Animator anim;
+
     private void Start()
     {
         GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -29,11 +31,13 @@ public class PlayerInput : MonoBehaviour
         // Movement speed multiplier of the player.
         MovementScalar = 120;
         GravityMultiplier = 0f;
+
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 0.6f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
+        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 1.75f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
         {
             IsTouchingGround = true;
             GravityMultiplier = 1f;
@@ -108,11 +112,23 @@ public class PlayerInput : MonoBehaviour
     {
         player.TakeDamage(incDamage);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Wall"))
+        {
+            Debug.Log("Yay");
+            Vector3 oppositeVel = gameObject.GetComponent<Rigidbody>().velocity;
+            oppositeVel.x *= -1;
+
+            gameObject.GetComponent<Rigidbody>().AddForce(oppositeVel * 2, ForceMode.Impulse);
+        }
+    }
     
     public IEnumerator KnockbackVulnerability(float duration = 1f)
     {
         gameObject.GetComponent<Rigidbody>().drag = 5f;
-        IsMovementDisabled = true;
+        IsMovementDisabled = true; 
         yield return new WaitForSeconds(duration);
 
         IsMovementDisabled = false;

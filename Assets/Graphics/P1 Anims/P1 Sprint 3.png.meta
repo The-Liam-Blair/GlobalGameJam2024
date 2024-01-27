@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3a8e94450ce7e514fab09699ccbd5ec3
+guid: 7f97e566b2d1112479ebeb27f91d3ed2
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: P1 Idle_0
+      name: P1 Sprint 3_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 25
-        width: 257
-        height: 350
+        x: 12
+        y: 259
+        width: 130
+        height: 156
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b462bc69cf295348b4bd040e609ae60
-      internalID: -1034495666
+      spriteID: a8cae81d1f20e224c85db4f0f6077fe5
+      internalID: -1356663184
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: P1 Idle_1
+      name: P1 Sprint 3_1
       rect:
         serializedVersion: 2
-        x: 316
-        y: 25
-        width: 257
-        height: 350
+        x: 198
+        y: 257
+        width: 129
+        height: 156
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 615b32333b3d34a49a0a034b4ea3205f
-      internalID: -179884668
+      spriteID: dc1b60e2d6a18a040b1444ae57449710
+      internalID: -182973631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P1 Sprint 3_2
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 256
+        width: 129
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20ec01f8f84d5b1478f4e4c48ece732f
+      internalID: -336251018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P1 Sprint 3_3
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 32
+        width: 129
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66685882e9048e94cb0f2e253e318c1d
+      internalID: 935596607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P1 Sprint 3_4
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 43
+        width: 130
+        height: 153
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad43f608e7f14974b9089d7e551c37d8
+      internalID: 1491235694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P1 Sprint 3_5
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 38
+        width: 129
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c6e193619a708546a06de531d075494
+      internalID: -145376850
       vertices: []
       indices: 
       edges: []
@@ -154,7 +238,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ece6446f82773ad40859948412eb61f2
+    spriteID: 0f89b463f07525943ab9d582aa5495b6
     internalID: 0
     vertices: []
     indices: 
@@ -162,8 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      P1 Idle_0: -1034495666
-      P1 Idle_1: -179884668
+      P1 Sprint 3_0: -1356663184
+      P1 Sprint 3_1: -182973631
+      P1 Sprint 3_2: -336251018
+      P1 Sprint 3_3: 935596607
+      P1 Sprint 3_4: 1491235694
+      P1 Sprint 3_5: -145376850
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
