@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseScript : MonoBehaviour
 {
@@ -26,6 +27,25 @@ public class PauseScript : MonoBehaviour
             {
                 Time.timeScale = 1;
                 paused = false;
+            }
+        }
+
+        if (paused == true && Input.GetKeyDown(KeyCode.E))
+        {
+            if (selected == 1)
+            {
+                //Resume
+                Time.timeScale = 1;
+            }
+            else if (selected == 2)
+            {
+                //Restart
+                SceneManager.LoadScene("GameUIScene");
+            }
+            else
+            {
+                //Menu
+                SceneManager.LoadScene("MainMenuScene");
             }
         }
     }

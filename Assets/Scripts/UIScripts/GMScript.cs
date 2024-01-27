@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GMScript : MonoBehaviour
@@ -76,7 +77,7 @@ public class GMScript : MonoBehaviour
                 else
                 {
                     selected = 1;
-                    selector.transform.position = new Vector3(button1.transform.position.x - 50, button1.transform.position.y, button1.transform.position.z);
+                    selector.transform.position = new Vector3(button1.transform.position.x - 50, button1 .transform.position.y, button1.transform.position.z);
                 }
             }
 
@@ -85,10 +86,12 @@ public class GMScript : MonoBehaviour
                 if (selected == 1)
                 {
                     //RESTART FIGHT
+                    SceneManager.LoadScene("GameUIScene");
                 }
-                else
+                if (selected == 2)
                 {
                     //BACK TO MENU
+                    SceneManager.LoadScene("MainMenuScene");
                 }
             }
         }
