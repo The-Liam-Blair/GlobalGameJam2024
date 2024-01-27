@@ -12,10 +12,12 @@ public class GMScript : MonoBehaviour
     public GameObject VictoryMenu;
     public TMP_Text P1Victory;
     public TMP_Text P2Victory;
-    
+
+    private int selected;
+
     void Start()
     {
-        
+        selected = 1;
     }
     
     void Update()
@@ -46,12 +48,39 @@ public class GMScript : MonoBehaviour
 
         if (VictoryMenu.activeSelf == true)
         {
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.W))
             {
-
+                if (selected == 1)
+                {
+                    selected = 2;
+                }
+                else
+                {
+                    selected = 1;
+                }
             }
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            if (Input.GetKeyDown(KeyCode.S))
             {
+                if (selected == 1)
+                {
+                    selected = 2;
+                }
+                else
+                {
+                    selected = 1;
+                }
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (selected == 1)
+                    {
+                        //RESTART FIGHT
+                    }
+                    else
+                    {
+                        //BACK TO MENU
+                    }
+                }
 
             }
         }
