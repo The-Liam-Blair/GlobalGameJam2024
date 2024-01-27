@@ -147,15 +147,16 @@ public class PlayerAttackHitBox : MonoBehaviour
         if (other.transform != transform.parent && other.transform.CompareTag("Player"))
         {
             DeactivateAttack();
-            // Other.TakeDamage();
-            // Other.Knockback();
 
             // Direction is from the parent of the hitbox (which is the attacking player) to the other player.
             Vector3 normalizedDirection = Vector3.Normalize(other.transform.position - transform.parent.position);
 
             Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
 
-            other.gameObject.GetComponent<Rigidbody>().AddForce(normalizedDirection * 50f, ForceMode.Impulse);
+            Vector2 knockbackForce = new Vector2(attackHorizontalForce, attackVerticalForce);
+            // Other.TakeDamage();
+
+            other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
         }
     }
