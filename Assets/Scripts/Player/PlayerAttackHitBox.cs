@@ -41,7 +41,7 @@ public class PlayerAttackHitBox : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PrepareNextAttack(50, 10, 10, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
+            PrepareNextAttack(10, 30, 5, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
         }
 
         if (attackActive)
@@ -81,8 +81,8 @@ public class PlayerAttackHitBox : MonoBehaviour
                     float damage = ChargeDuration * 4;
                     Mathf.Clamp(damage, 1, 30);
 
-                    float Hforce = ChargeDuration * 10;
-                    float Vforce = ChargeDuration * 2;
+                    float Hforce = ChargeDuration * 40;
+                    float Vforce = ChargeDuration * 10;
 
                     PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration);
                     Debug.Log($"Spin attack! Duration: {duration}, Damage: {damage}, Hforce: {Hforce}, Vforce: {Vforce}");
@@ -146,18 +146,26 @@ public class PlayerAttackHitBox : MonoBehaviour
 
         if (other.transform != transform.parent && other.transform.CompareTag("Player"))
         {
-            DeactivateAttack();
-
             // Direction is from the parent of the hitbox (which is the attacking player) to the other player.
             Vector3 normalizedDirection = Vector3.Normalize(other.transform.position - transform.parent.position);
 
             Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
 
-            Vector2 knockbackForce = new Vector2(attackHorizontalForce, attackVerticalForce);
+            other.gameObject.GetComponent<Rigidbody>().AddForce(normalizedDirection * 50f, ForceMode.Impulse);
+
+            Debug.Log($"Hori: {attackHorizontalForce}. Vert: {attackVerticalForce}.");
+            Debug.Log(
+                $"Normalized force: {normalizedDirection * attackHorizontalForce} : {normalizedDirection * attackVerticalForce}.");
+
+
+            Vector2 knockbackForce = new Vector2(attackHorizontalForce, 0) * normalizedDirection;
+            knockbackForce.y = attackVerticalForce;
             // Other.TakeDamage();
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
+
+            DeactivateAttack();
         }
     }
 }
