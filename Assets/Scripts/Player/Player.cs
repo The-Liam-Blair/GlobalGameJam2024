@@ -56,4 +56,14 @@ public class Player
                 break;
         }
     }
+
+    public void TakeDamage(int incDamage)
+    {
+        health -= incDamage;
+
+        if (health <= 0)
+        {
+            // die?
+        }
+    }
 }

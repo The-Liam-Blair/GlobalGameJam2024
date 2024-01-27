@@ -9,7 +9,7 @@ public class PlayerAttackHitBox : MonoBehaviour
     public bool attackActive;
 
     // Attack damage and knockback force on the X and Y axes.
-    private float attackDamage;
+    private int attackDamage;
     private float attackHorizontalForce;
     private float attackVerticalForce;
     
@@ -41,7 +41,7 @@ public class PlayerAttackHitBox : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PrepareNextAttack(10, 30, 5, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
+            PrepareNextAttack(10, 20, 5, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
         }
 
         if (attackActive)
@@ -78,7 +78,7 @@ public class PlayerAttackHitBox : MonoBehaviour
                     float duration = ChargeDuration * 0.5f;
                     Mathf.Clamp(duration, 2f, 5f);
 
-                    float damage = ChargeDuration * 4;
+                    int damage = (int) Mathf.Floor(ChargeDuration * 4);
                     Mathf.Clamp(damage, 1, 30);
 
                     float Hforce = ChargeDuration * 40;
@@ -93,7 +93,7 @@ public class PlayerAttackHitBox : MonoBehaviour
         }
     }
     
-    public void PrepareNextAttack(float _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration)
+    public void PrepareNextAttack(int _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration)
     {
         attackDamage = _damage;
         
@@ -142,27 +142,19 @@ public class PlayerAttackHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Current: {gameObject.name}. Other: {other.gameObject.name}.");
-
         if (other.transform != transform.parent && other.transform.CompareTag("Player"))
         {
             // Direction is from the parent of the hitbox (which is the attacking player) to the other player.
             Vector3 normalizedDirection = Vector3.Normalize(other.transform.position - transform.parent.position);
 
-            Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
-
-            other.gameObject.GetComponent<Rigidbody>().AddForce(normalizedDirection * 50f, ForceMode.Impulse);
-
-            Debug.Log($"Hori: {attackHorizontalForce}. Vert: {attackVerticalForce}.");
-            Debug.Log(
-                $"Normalized force: {normalizedDirection * attackHorizontalForce} : {normalizedDirection * attackVerticalForce}.");
-
-
+            // Normalization done to get the direction of the knockback force, the y axis is added after as its likely the factor
+            // for the y axis is an extremely small number from a tiny y value difference.
             Vector2 knockbackForce = new Vector2(attackHorizontalForce, 0) * normalizedDirection;
             knockbackForce.y = attackVerticalForce;
-            // Other.TakeDamage();
-
+            
+            other.gameObject.GetComponent<PlayerInput>().TakeDamage(attackDamage);
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
+            
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
 
             DeactivateAttack();

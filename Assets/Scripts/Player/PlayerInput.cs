@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour
     private bool IsMovementDisabled = false;
 
     private bool IsTouchingGround = false;
+    private float GravityMultiplier;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
 
         // Movement speed multiplier of the player.
         MovementScalar = 120;
+        GravityMultiplier = 0f;
     }
 
     private void FixedUpdate()
@@ -34,6 +36,7 @@ public class PlayerInput : MonoBehaviour
         if (Physics.Raycast(transform.position + transform.right, Vector3.down, 0.6f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
         {
             IsTouchingGround = true;
+            GravityMultiplier = 1f;
         }
         else
         {
@@ -44,7 +47,8 @@ public class PlayerInput : MonoBehaviour
 
         if (!IsTouchingGround)
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(0, -9.81f, 0, ForceMode.Acceleration);
+            GravityMultiplier += 1.5f;
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -4, 0) * GravityMultiplier, ForceMode.Acceleration);
         }
 
         MovementInput = Vector2.zero;
@@ -99,6 +103,12 @@ public class PlayerInput : MonoBehaviour
             }
         }
     }
+
+    public void TakeDamage(int incDamage)
+    {
+        player.TakeDamage(incDamage);
+    }
+    
     public IEnumerator KnockbackVulnerability(float duration = 1f)
     {
         gameObject.GetComponent<Rigidbody>().drag = 5f;
