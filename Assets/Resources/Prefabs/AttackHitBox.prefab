@@ -115,7 +115,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8929209225595616465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7547ef5046387ec4c941d3403396e1f1, type: 3}
+  m_Script: {fileID: 11500000, guid: f0ad1e3b558cc474c97694553098ac37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackActive: 0
+  duration: 0
+  isPreparingSpinAttack: 0
+  isPerformingSpinAttack: 0
