@@ -146,21 +146,13 @@ public class PlayerAttackHitBox : MonoBehaviour
 
         if (other.transform != transform.parent && other.transform.CompareTag("Player"))
         {
-<<<<<<< Updated upstream
-            DeactivateAttack();
-            // Other.TakeDamage();
-            // Other.Knockback();
-
-=======
->>>>>>> Stashed changes
             // Direction is from the parent of the hitbox (which is the attacking player) to the other player.
             Vector3 normalizedDirection = Vector3.Normalize(other.transform.position - transform.parent.position);
 
             Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
 
-<<<<<<< Updated upstream
             other.gameObject.GetComponent<Rigidbody>().AddForce(normalizedDirection * 50f, ForceMode.Impulse);
-=======
+
             Debug.Log($"Hori: {attackHorizontalForce}. Vert: {attackVerticalForce}.");
             Debug.Log(
                 $"Normalized force: {normalizedDirection * attackHorizontalForce} : {normalizedDirection * attackVerticalForce}.");
@@ -171,7 +163,6 @@ public class PlayerAttackHitBox : MonoBehaviour
             // Other.TakeDamage();
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
->>>>>>> Stashed changes
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
 
             DeactivateAttack();
