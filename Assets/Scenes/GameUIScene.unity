@@ -686,7 +686,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
@@ -1289,7 +1289,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7767563642442243290, guid: b9a09657ec57c77409bddb7c08cb3013, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2072143182}
   m_SourcePrefab: {fileID: 100100000, guid: b9a09657ec57c77409bddb7c08cb3013, type: 3}
 --- !u!1 &1059499757
 GameObject:
@@ -2039,10 +2042,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 126
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!65 &1456592371
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2883,10 +2886,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1902133781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1235, y: 440}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2062233766
 MonoBehaviour:
@@ -2926,6 +2929,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062233764}
   m_CullTransparentMesh: 1
+--- !u!1 &2072143179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7767563642442243290, guid: b9a09657ec57c77409bddb7c08cb3013, type: 3}
+  m_PrefabInstance: {fileID: 1055435479}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2072143182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072143179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023fef54ef2f241a298ccb5ae4b8300d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  playerFootsteps: []
+  playerJumps: []
+  playerWoosh: []
+  playerHit: []
+  Music: []
+  victoryMusicDelay: 0
+  playFightMusic: 0
+  playMainMenuMusic: 0
+  isIntroVicPlaying: 0
 --- !u!1 &2111342018
 GameObject:
   m_ObjectHideFlags: 0
