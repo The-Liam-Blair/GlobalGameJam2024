@@ -59,12 +59,14 @@ public class testScript : MonoBehaviour
     {
 
 
+        /*
         if (ScriptActive){
             if (Input.GetKeyDown(KeyCode.W))
             {
                 FindObjectOfType<AudioManager>().PlayJumpSound();
                 //Debug.Log("JumpPlayed");
             }
+
             if (Input.GetKeyDown(KeyCode.E)){
                 FindObjectOfType<AudioManager>().PlayerWhoosh();
                 //Debug.Log("PlayerWhoosh");
@@ -87,6 +89,7 @@ public class testScript : MonoBehaviour
             } 
 
 
+            
             if (Input.GetKeyUp(KeyCode.M)){
                 SceneManager.LoadScene("MainMenu");
             } 
@@ -110,6 +113,7 @@ public class testScript : MonoBehaviour
             }   
 
 
+            */
 
             CheckSceneLevel();
 
