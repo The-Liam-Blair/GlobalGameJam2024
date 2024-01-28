@@ -13,6 +13,7 @@ public class MenuControlScript : MonoBehaviour
     {
         //        blackSquare.SetActive(true);
         StartCoroutine(FadeOutToBlack());
+        Time.timeScale = 1;
     }
 
     private void Update()
