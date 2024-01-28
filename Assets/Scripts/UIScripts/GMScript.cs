@@ -15,10 +15,10 @@ public class GMScript : MonoBehaviour
     public TMP_Text P2Victory;
 
     private int selected;
-    //public RawImage selector;
+    public RawImage selector;
 
-    //public TMP_Text button1;
-    //public TMP_Text button2;
+    public TMP_Text button1;
+    public TMP_Text button2;
 
     void Start()
     {
@@ -51,7 +51,6 @@ public class GMScript : MonoBehaviour
             p2Health.GetComponent<HealthBarScripts>().Health(10);
         }
 
-        /*
         if (VictoryMenu.activeSelf == true)
         {
             if (Input.GetKeyDown(KeyCode.W))
@@ -59,12 +58,12 @@ public class GMScript : MonoBehaviour
                 if (selected == 1)
                 {
                     selected = 2;
-                    selector.transform.position = new Vector3(button2.transform.position.x - 50, button2.transform.position.y, button2.transform.position.z);
+                    selector.transform.position = new Vector3(button2.transform.position.x - 350, button2.transform.position.y, button2.transform.position.z);
                 }
                 else
                 {
                     selected = 1;
-                    selector.transform.position = new Vector3(button1.transform.position.x - 50, button1.transform.position.y, button1.transform.position.z);
+                    selector.transform.position = new Vector3(button1.transform.position.x - 350, button1.transform.position.y, button1.transform.position.z);
                 }
             }
             if (Input.GetKeyDown(KeyCode.S))
@@ -72,12 +71,12 @@ public class GMScript : MonoBehaviour
                 if (selected == 1)
                 {
                     selected = 2;
-                    selector.transform.position = new Vector3(button2.transform.position.x - 50, button2.transform.position.y, button2.transform.position.z);
+                    selector.transform.position = new Vector3(button2.transform.position.x - 350, button2.transform.position.y, button2.transform.position.z);
                 }
                 else
                 {
                     selected = 1;
-                    selector.transform.position = new Vector3(button1.transform.position.x - 50, button1 .transform.position.y, button1.transform.position.z);
+                    selector.transform.position = new Vector3(button1.transform.position.x - 350, button1 .transform.position.y, button1.transform.position.z);
                 }
             }
 
@@ -95,6 +94,5 @@ public class GMScript : MonoBehaviour
                 }
             }
         }
-        */
     }
 }
