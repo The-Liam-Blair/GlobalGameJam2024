@@ -17,14 +17,14 @@ public class MenuControlScript : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            StartCoroutine(FadeToBlack("Test"));
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartCoroutine(FadeOutToBlack());
-        }
+      //  if (Input.GetKeyDown(KeyCode.O))
+     //   {
+      //      StartCoroutine(FadeToBlack("Test"));
+      //  }
+       // if (Input.GetKeyDown(KeyCode.P))
+       // {
+       //     StartCoroutine(FadeOutToBlack());
+     //   }
 
     }
     public IEnumerator FadeToBlack(string sceneName, int speed = 1)

@@ -11,16 +11,17 @@ public class SplashScreenScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(FadeOutToBlack());
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += 1 * Time.deltaTime;
-        if (timer > 3)
+        if (timer > 2)
         {
-            SceneManager.LoadScene("MainMenuScene");
+            StartCoroutine(FadeToBlack());
+            //SceneManager.LoadScene("MainMenuScene");
         }
     }
 
