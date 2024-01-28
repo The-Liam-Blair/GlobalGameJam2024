@@ -191,13 +191,42 @@ public class PlayerAttackHitBox : MonoBehaviour
             knockbackForce.y = attackVerticalForce;
 
             other.gameObject.GetComponent<PlayerInput>().TakeDamage(attackDamage);
-            if (playerInput.player.id == 1)
+            float rand = Random.Range(0f, 1f);
+
+            switch (rand)
             {
-                other.gameObject.GetComponent<PlayerInput>().anim.Play("_P2 Launch");
-            }
-            else
-            {
-                other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
+                case <= 0.33f:
+                    if (playerInput.player.id == 1)
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P2 Launch");
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
+                    }
+                    break;
+
+                case <= 0.66f:
+                    if (playerInput.player.id == 1)
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P2 Hurt1");
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Hurt1");
+                    }
+                    break;
+
+                case <= 1f:
+                    if (playerInput.player.id == 1)
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P2 Hurt2");
+                    }
+                    else
+                    {
+                        other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Hurt2");
+                    }
+                    break;
             }
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);

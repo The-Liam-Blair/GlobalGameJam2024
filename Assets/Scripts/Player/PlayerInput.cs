@@ -76,7 +76,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         MovementInput = Vector2.zero;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -19, 19), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -28, 28), transform.position.y, transform.position.z);
 
         if (!IsMovementDisabled)
         {
