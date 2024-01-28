@@ -67,24 +67,19 @@ public class PauseScript : MonoBehaviour
                     selected = 1;
                     selector.transform.position = new Vector3(button1.transform.position.x - 5, button1.transform.position.y, button1.transform.position.z);
                 }
+            }
 
-                if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (selected == 1)
                 {
-                    if (selected == 1)
-                    {
-                        //Resume
-                        Time.timeScale = 1;
-                    }
-                    else if (selected == 2)
-                    {
-                        //Restart
-                        SceneManager.LoadScene("GameUIScene");
-                    }
-                    else
-                    {
-                        //Menu
-                        SceneManager.LoadScene("MainMenuScene");
-                    }
+                    //Restart
+                    SceneManager.LoadScene("GameUIScene");
+                }
+                else if (selected == 2)
+                {
+                    //Menu
+                    SceneManager.LoadScene("MainMenuScene");
                 }
             }
         }
