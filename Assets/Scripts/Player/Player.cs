@@ -16,6 +16,8 @@ public class Player
 
     public string PunchInput { get; private set; }
 
+    public string KickInput { get; private set; }
+
     // Reference to the player game object.
     public GameObject playerObject { get; private set; }
 
@@ -58,12 +60,14 @@ public class Player
                 horizontalInput = "P1Horizontal";
                 verticalInput = "P1Vertical";
                 PunchInput = "P1Punch";
+                KickInput = "P1Kick";
                 break;
 
             case 2:
                 horizontalInput = "P2Horizontal";
                 verticalInput = "P2Vertical";
                 PunchInput = "P2Punch";
+                KickInput = "P2Kick";
                 break;
 
             default:

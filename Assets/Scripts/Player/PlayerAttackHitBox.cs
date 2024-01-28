@@ -139,7 +139,12 @@ public class PlayerAttackHitBox : MonoBehaviour
 
     public void PreparePunchAttack()
     {
-        PrepareNextAttack(15, 30, 20, new Vector3(0.8f, 0.5f, 1f), 1f);
+        PrepareNextAttack(8, 30, 20, new Vector3(1.2f, 0.5f, 1f), 1f);
+    }
+
+    public void PrepareKickAttack()
+    {
+        PrepareNextAttack(10, 20, 35, new Vector3(0.8f, 1.25f, 1f), 0.75f);
     }
 
     private void DeactivateAttack()
