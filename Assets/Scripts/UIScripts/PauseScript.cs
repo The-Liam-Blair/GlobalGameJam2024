@@ -26,18 +26,7 @@ public class PauseScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (paused == false)
-            {
-                Time.timeScale = 0;
-                paused = true;
-                pauseMenu.SetActive(true);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                paused = false;
-                pauseMenu.SetActive(false);
-            }
+            Pause();
         }
 
         if (paused == true)
@@ -71,9 +60,12 @@ public class PauseScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Time.timeScale = 1;
                 if (selected == 1)
                 {
                     //Restart
+                    FindObjectOfType<AudioManager>().StopFightMusic();
+                    FindObjectOfType<AudioManager>().TurnFightMusicOn();
                     SceneManager.LoadScene("GameUIScene");
                 }
                 else if (selected == 2)
@@ -82,6 +74,22 @@ public class PauseScript : MonoBehaviour
                     SceneManager.LoadScene("MainMenuScene");
                 }
             }
+        }
+    }
+
+    public void Pause()
+    {
+        if (paused == false)
+        {
+            Time.timeScale = 0;
+            paused = true;
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            paused = false;
+            pauseMenu.SetActive(false);
         }
     }
 }
