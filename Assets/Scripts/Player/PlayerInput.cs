@@ -25,12 +25,15 @@ public class PlayerInput : MonoBehaviour
 
     public bool isDead = false;
 
+    private GameManager manager;
+
     private void Start()
     {
-        GameManager manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // Fetch the input scheme from the game manager.
         player = manager.AssignInputToPlayer();
+
         XInput = player.horizontalInput;
         YInput = player.verticalInput;
         PunchInput = player.PunchInput;
@@ -76,7 +79,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         MovementInput = Vector2.zero;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -28, 28), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -23.5f, 23.5f), transform.position.y, transform.position.z);
 
         if (!IsMovementDisabled)
         {
@@ -99,17 +102,28 @@ public class PlayerInput : MonoBehaviour
         else if (MovementInput.y > 0 && IsTouchingGround)
         {
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
-            
+            FindObjectOfType<AudioManager>().PlayJumpSound();
+
         }
 
-        if (MovementInput.x > 0 && IsTouchingGround)
+        if (MovementInput.x != 0 && IsTouchingGround)
         {
-            //FindObjectOfType<AudioManager>().PlayerFootSteps();
+            FindObjectOfType<AudioManager>().PlayerFootSteps();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            FindObjectOfType<AudioManager>().Play("PlayerPunchBuildUp");
+        }
+
+        if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            FindObjectOfType<AudioManager>().Stop("PlayerPunchBuildUp");
         }
 
         // Set facing direction to movement direction.
-        // Note that a speed of 0 does not change the facing direction, retaining the last direction.
-        switch (MovementInput.x)
+            // Note that a speed of 0 does not change the facing direction, retaining the last direction.
+            switch (MovementInput.x)
         {
             case > 0:
 
@@ -163,6 +177,8 @@ public class PlayerInput : MonoBehaviour
                     anim.Play("_P2 Punch");
                 }
                 player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PreparePunchAttack();
+                FindObjectOfType<AudioManager>().PlayerWhoosh();
+
             }
         }
         else if (Input.GetAxisRaw(KickInput) > 0 &&
@@ -181,6 +197,7 @@ public class PlayerInput : MonoBehaviour
                 }
 
                 player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareKickAttack();
+                FindObjectOfType<AudioManager>().PlayerWhoosh();
             }
         }
     }
@@ -220,7 +237,7 @@ public class PlayerInput : MonoBehaviour
 
     private IEnumerator DeathAnimation()
     {
-        yield return new WaitForSeconds(0.33f);
+        yield return new WaitForSecondsRealtime(0.33f);
         if (player.id == 1)
         {
             anim.Play("_P1 KO");
@@ -233,7 +250,7 @@ public class PlayerInput : MonoBehaviour
         isDead = true;
         GetComponent<BoxCollider>().size = new Vector3(2.55f, 1.75f, 1f);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(1f);
         yield return null;
     }
 }

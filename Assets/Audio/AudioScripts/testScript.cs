@@ -74,16 +74,16 @@ public class testScript : MonoBehaviour
                 //Debug.Log("PlayerHit");
             } 
             if (Input.GetKeyDown(KeyCode.S)){
-                FindObjectOfType<AudioManager>().Play("PlayerPunchBuildUp");
+              //  FindObjectOfType<AudioManager>().Play("PlayerPunchBuildUp");
             } 
             if (Input.GetKeyUp(KeyCode.S)){
-                FindObjectOfType<AudioManager>().Stop("PlayerPunchBuildUp");
+              //  FindObjectOfType<AudioManager>().Stop("PlayerPunchBuildUp");
             } 
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A)){
-                FindObjectOfType<AudioManager>().PlayerFootSteps();
+              //  FindObjectOfType<AudioManager>().PlayerFootSteps();
             }
             if (Input.GetKeyUp(KeyCode.S)){
-                FindObjectOfType<AudioManager>().Stop("PlayerPunchBuildUp");
+              //  FindObjectOfType<AudioManager>().Stop("PlayerPunchBuildUp");
             } 
 
 

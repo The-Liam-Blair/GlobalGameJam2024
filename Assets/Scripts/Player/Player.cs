@@ -45,6 +45,7 @@ public class Player
         else if (id == 2)
         {
             Health = GameObject.Find("P2 Back").GetComponent<HealthBarScripts>();
+            isFacingRight = false;
         }
 
         AttackHitBox = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/AttackHitBox"),

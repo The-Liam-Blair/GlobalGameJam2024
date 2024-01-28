@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private Player player1;
     private Player player2;
 
-    private void Start()
+    private void Awake()
     { 
         player1 = new Player(Instantiate(playerObject, new Vector3(1, 1, 0), Quaternion.identity), 1);
         player2 = new Player(Instantiate(playerObject, new Vector3(5, 1, 0), Quaternion.identity), 2);

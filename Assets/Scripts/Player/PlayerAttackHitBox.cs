@@ -29,6 +29,8 @@ public class PlayerAttackHitBox : MonoBehaviour
 
     private bool chargeAniPlaying = false;
 
+    private bool chargeAtkSound = true;
+
     private void Start()
     {
         hitBox = gameObject.GetComponent<BoxCollider>();
@@ -65,9 +67,8 @@ public class PlayerAttackHitBox : MonoBehaviour
         {
             if (playerInput.MovementInput is { x: 0f, y: < 0f })
             {
-                //Debug.Log($"Spinning... {ChargeDuration}");
                 ChargeDuration += Time.deltaTime;
-
+                
                 if (!chargeAniPlaying)
                 {
                     if (playerInput.player.id == 1)
@@ -88,7 +89,7 @@ public class PlayerAttackHitBox : MonoBehaviour
             }
         }
 
-        if (!isPreparingSpinAttack)
+        if (!isPreparingSpinAttack && ChargeDuration > 0.1f)
         {
             switch (ChargeDuration)
             {
@@ -103,8 +104,20 @@ public class PlayerAttackHitBox : MonoBehaviour
                     float Hforce = ChargeDuration * 60;
                     float Vforce = ChargeDuration * 30;
 
-                    PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration);
+                    PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration, "");
                     Debug.Log($"Spin attack! Duration: {duration}, Damage: {damage}, Hforce: {Hforce}, Vforce: {Vforce}");
+                    break;
+
+                default:
+                    if (playerInput.player.id == 1)
+                    {
+                        playerInput.anim.Play("_P1 Idle");
+                    }
+                    else
+                    {
+                        playerInput.anim.Play("_P2 Idle");
+                    }
+
                     break;
             } 
             chargeAniPlaying = false;
@@ -112,7 +125,7 @@ public class PlayerAttackHitBox : MonoBehaviour
         }
     }
     
-    public void PrepareNextAttack(int _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration)
+    public void PrepareNextAttack(int _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration, string type)
     {
         attackDamage = _damage;
         
@@ -139,12 +152,12 @@ public class PlayerAttackHitBox : MonoBehaviour
 
     public void PreparePunchAttack()
     {
-        PrepareNextAttack(8, 30, 20, new Vector3(1.2f, 0.5f, 1f), 1f);
+        PrepareNextAttack(8, 30, 20, new Vector3(1.2f, 0.5f, 1f), 1f, "Punch");
     }
 
     public void PrepareKickAttack()
     {
-        PrepareNextAttack(10, 20, 35, new Vector3(0.8f, 1.25f, 1f), 0.75f);
+        PrepareNextAttack(10, 20, 35, new Vector3(0.8f, 1.25f, 1f), 0.75f, "Kick");
     }
 
     private void DeactivateAttack()
@@ -232,6 +245,8 @@ public class PlayerAttackHitBox : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
             
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
+            Debug.Log("hit");
+            FindObjectOfType<AudioManager>().PlayerHit();
 
             DeactivateAttack();
             duration = 0f;
