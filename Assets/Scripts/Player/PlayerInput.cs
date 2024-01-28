@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
 
     private float MovementScalar;
 
-    private bool IsMovementDisabled = false;
+    public bool IsMovementDisabled = false;
 
     private bool IsTouchingGround = false;
     private float GravityMultiplier;
@@ -161,6 +161,7 @@ public class PlayerInput : MonoBehaviour
             }
             GetComponent<Rigidbody>().detectCollisions = false;
             IsMovementDisabled = true;
+            otherPlayer.playerObject.GetComponent<PlayerInput>().IsMovementDisabled = true;
         }
 
         if (Input.GetAxisRaw(PunchInput) > 0 && !player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
