@@ -36,7 +36,7 @@ public class PauseScript : MonoBehaviour
             {
                 Time.timeScale = 1;
                 paused = false;
-                pauseMenu.SetActive(true);
+                pauseMenu.SetActive(false);
             }
         }
 
@@ -47,12 +47,12 @@ public class PauseScript : MonoBehaviour
                 if (selected == 1)
                 {
                     selected = 2;
-                    selector.transform.position = new Vector3(button2.transform.position.x - 350, button2.transform.position.y, button2.transform.position.z);
+                    selector.transform.position = new Vector3(button2.transform.position.x - 5, button2.transform.position.y, button2.transform.position.z);
                 }
                 else
                 {
                     selected = 1;
-                    selector.transform.position = new Vector3(button1.transform.position.x - 350, button1.transform.position.y, button1.transform.position.z);
+                    selector.transform.position = new Vector3(button1.transform.position.x - 5, button1.transform.position.y, button1.transform.position.z);
                 }
             }
             if (Input.GetKeyDown(KeyCode.S))
@@ -60,12 +60,12 @@ public class PauseScript : MonoBehaviour
                 if (selected == 1)
                 {
                     selected = 2;
-                    selector.transform.position = new Vector3(button2.transform.position.x - 350, button2.transform.position.y, button2.transform.position.z);
+                    selector.transform.position = new Vector3(button2.transform.position.x - 5, button2.transform.position.y, button2.transform.position.z);
                 }
                 else
                 {
                     selected = 1;
-                    selector.transform.position = new Vector3(button1.transform.position.x - 350, button1.transform.position.y, button1.transform.position.z);
+                    selector.transform.position = new Vector3(button1.transform.position.x - 5, button1.transform.position.y, button1.transform.position.z);
                 }
 
                 if (Input.GetKeyDown(KeyCode.E))
