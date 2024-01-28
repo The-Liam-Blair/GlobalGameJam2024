@@ -1,0 +1,245 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2044423329406689871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2044423329406689865}
+  - component: {fileID: 2044423329406689870}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2044423329406689865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044423329406689871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2044423329406689870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044423329406689871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023fef54ef2f241a298ccb5ae4b8300d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: PlayerPunchBuildUp
+    clip: {fileID: 8300000, guid: fbe66bfc18d114db79d4879757a8810e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 24300002, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: HoverUI
+    clip: {fileID: 8300000, guid: 5be99be0140894d148452b9deea947eb, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 24300002, guid: 36ec03ca332a34047939c055458ddda5, type: 2}
+    source: {fileID: 0}
+  - name: SelectUI
+    clip: {fileID: 8300000, guid: da369d70b81174290a91ba040568808b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 24300002, guid: 36ec03ca332a34047939c055458ddda5, type: 2}
+    source: {fileID: 0}
+  playerFootsteps:
+  - name: PlayerRun1
+    clip: {fileID: 8300000, guid: ec8602822e0b245bfa421a62b6b5aad2, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun2
+    clip: {fileID: 8300000, guid: 83efbb6e3c0e0440492b03b5e8112926, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun3
+    clip: {fileID: 8300000, guid: 42522847dd0e6459a96521b2d32c5223, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun4
+    clip: {fileID: 8300000, guid: f795181ad94fe4c6bbf5715627b04289, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun5
+    clip: {fileID: 8300000, guid: baec70bbca90243eeb321f9a15df70e6, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun6
+    clip: {fileID: 8300000, guid: 08d501289f00d4fccbffdb5dcc19790b, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun7
+    clip: {fileID: 8300000, guid: 06b8462bce3b548879fd8cf480368529, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerRun8
+    clip: {fileID: 8300000, guid: 0df00444924894b6bb203d28d7322a7d, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -355252625812208908, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  playerJumps:
+  - name: PlayerJump1
+    clip: {fileID: 8300000, guid: 5c13e0a6043f341c781748b72b9b3e8f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -8251740700681626396, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerJump2
+    clip: {fileID: 8300000, guid: aedf39481fcb845c08b4dea0c8bde5a7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -8251740700681626396, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerJump3
+    clip: {fileID: 8300000, guid: 20cd0bd77322a4887964db8461b04b88, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -8251740700681626396, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerJump4
+    clip: {fileID: 8300000, guid: 8ca155fc47377408da8a60d65033bc6b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: -8251740700681626396, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  playerWoosh:
+  - name: Woosh1
+    clip: {fileID: 8300000, guid: a981f8c2fb6344583a211752ae899fe8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 4504733741910260049, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: Woosh2
+    clip: {fileID: 8300000, guid: 894065abf8a1c445995274aaa572e647, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}
+  - name: Woosh3
+    clip: {fileID: 8300000, guid: a7ecade469dce49be839d33dd49b6b60, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 4504733741910260049, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  playerHit:
+  - name: PlayerHit1
+    clip: {fileID: 8300000, guid: 4967e24fe6c2e425f92f17c5cdc2f125, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 5328601790001172543, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerHit2
+    clip: {fileID: 8300000, guid: 37b4642462bb24369a75aa9c476f5178, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 5328601790001172543, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerHit3
+    clip: {fileID: 8300000, guid: 3d431f06cacc44b5eb1273e0b859e99e, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 5328601790001172543, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: PlayerHit4
+    clip: {fileID: 8300000, guid: a1d29ba63cd734b1981116577e77e68b, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 5328601790001172543, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  Music:
+  - name: MainMusic
+    clip: {fileID: 8300000, guid: 7330334b5e1984bf685b16e3e3a90409, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixer: {fileID: 19659436595706344, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: IntroductoryMusic
+    clip: {fileID: 8300000, guid: eaa105dba6f164a3faa0be94a7465afd, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 19659436595706344, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: IntroVictoryMusic
+    clip: {fileID: 8300000, guid: dbedff445bb8143159274fb8e1ea01da, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    mixer: {fileID: 5431674808237557866, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: VictoryMusic
+    clip: {fileID: 8300000, guid: 9b99ace073959453f88c2537097bcff3, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixer: {fileID: 5431674808237557866, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: MainMenuMusic
+    clip: {fileID: 8300000, guid: dd7c4e214b845e24a85f0c5a18d3ba85, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixer: {fileID: 19659436595706344, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  victoryMusicDelay: 0
+  playFightMusic: 1
+  playMainMenuMusic: 0
+  isIntroVicPlaying: 0
