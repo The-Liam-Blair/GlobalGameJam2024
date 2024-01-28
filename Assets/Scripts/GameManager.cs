@@ -27,4 +27,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("Over 2 players attempted to be assigned inputs!");
         return null;
     }
+
+    public Player GetOtherPlayerReference(int id)
+    {
+        if (id == 1)
+        {
+            return player2;
+        }
+        else if (id == 2)
+        {
+            return player1;
+        }
+
+        return null;
+    }
 }

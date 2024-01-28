@@ -9,10 +9,18 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private string XInput;
     private string YInput;
+    private string PunchInput;
 
     private float MovementScalar;
 
     private bool IsMovementDisabled = false;
+
+    private bool IsTouchingGround = false;
+    private float GravityMultiplier;
+
+    private Player otherPlayer;
+
+    public Animator anim;
 
     private void Start()
     {
@@ -22,13 +30,37 @@ public class PlayerInput : MonoBehaviour
         player = manager.AssignInputToPlayer();
         XInput = player.horizontalInput;
         YInput = player.verticalInput;
+        PunchInput = player.PunchInput;
 
         // Movement speed multiplier of the player.
         MovementScalar = 120;
+        GravityMultiplier = 0f;
+
+        anim = GetComponent<Animator>();
+
+        otherPlayer = manager.GetOtherPlayerReference(player.id);
     }
 
     private void FixedUpdate()
     {
+        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 1.75f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
+        {
+            IsTouchingGround = true;
+            GravityMultiplier = 1f;
+        }
+        else
+        {
+            IsTouchingGround = false;
+        }
+        Debug.DrawRay(transform.position + transform.right, Vector3.down * 0.51f, Color.red);
+        Debug.DrawRay(transform.position - transform.right, Vector3.down * 0.51f, Color.red);
+
+        if (!IsTouchingGround)
+        {
+            GravityMultiplier += 1.5f;
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -4, 0) * GravityMultiplier, ForceMode.Acceleration);
+        }
+
         MovementInput = Vector2.zero;
 
         if (!IsMovementDisabled)
@@ -47,6 +79,12 @@ public class PlayerInput : MonoBehaviour
             && player.AttackHitBox.GetComponent<PlayerAttackHitBox>().duration <= 0f)
         {
             player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareSpinAttack();
+        }
+
+        else if (MovementInput.y > 0 && IsTouchingGround)
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 100, ForceMode.Impulse);
+            
         }
 
         // Set facing direction to movement direction.
@@ -70,25 +108,67 @@ public class PlayerInput : MonoBehaviour
         {
             float duration = player.AttackHitBox.GetComponent<PlayerAttackHitBox>().duration;
             StartCoroutine(KnockbackVulnerability(duration));
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(duration * (player.isFacingRight ? 5 : -5), 0, 0), ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(duration * (player.isFacingRight ? 4 : -4), 0, 0), ForceMode.Impulse);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (otherPlayer.health <= 0)
+        {
+            anim.Play("_P1 Laugh");
+            GetComponent<Rigidbody>().detectCollisions = false;
+            IsMovementDisabled = true;
+        }
+
+        if (Input.GetAxisRaw(PunchInput) > 0 && !player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
         {
             if (!player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
             {
-                player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareNextAttack(50, 10, 10, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
+                anim.Play("_P1 Punch");
+                player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PreparePunchAttack();
             }
         }
     }
+
+    public void TakeDamage(int incDamage)
+    {
+        player.TakeDamage(incDamage);
+    }
+
+    public void Die()
+    {
+        StartCoroutine(DeathAnimation());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Wall"))
+        {
+            Vector3 oppositeVel = gameObject.GetComponent<Rigidbody>().velocity;
+            oppositeVel.x *= -1;
+            oppositeVel.y *= -1;
+
+            gameObject.GetComponent<Rigidbody>().AddForce(oppositeVel * 2, ForceMode.Impulse);
+        }
+    }
+    
     public IEnumerator KnockbackVulnerability(float duration = 1f)
     {
         gameObject.GetComponent<Rigidbody>().drag = 5f;
-        IsMovementDisabled = true;
+        IsMovementDisabled = true; 
         yield return new WaitForSeconds(duration);
 
         IsMovementDisabled = false;
         gameObject.GetComponent<Rigidbody>().drag = 15f;
+        yield return null;
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        yield return new WaitForSeconds(0.33f);
+        anim.Play("_P1 KO");
+        IsMovementDisabled = true;
+        
+        yield return new WaitForSeconds(0.2f);
+        GetComponent<Rigidbody>().detectCollisions = false;
         yield return null;
     }
 }

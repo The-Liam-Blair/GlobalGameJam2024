@@ -9,7 +9,7 @@ public class PlayerAttackHitBox : MonoBehaviour
     public bool attackActive;
 
     // Attack damage and knockback force on the X and Y axes.
-    private float attackDamage;
+    private int attackDamage;
     private float attackHorizontalForce;
     private float attackVerticalForce;
     
@@ -27,23 +27,29 @@ public class PlayerAttackHitBox : MonoBehaviour
     public bool isPerformingSpinAttack = false;
     private float SpinDuration;
 
+    private bool chargeAniPlaying = false;
+
     private void Start()
     {
         hitBox = gameObject.GetComponent<BoxCollider>();
-        
-        // Deactivate attack also can serve to initialize all the variables to standard values.
-        DeactivateAttack();
+
+        attackDamage = 0;
+
+        attackHorizontalForce = 0;
+        attackVerticalForce = 0;
+
+        duration = 0;
+
+        attackActive = false;
+        hitBox.size = Vector2.zero;
+        gameObject.transform.localScale = Vector3.zero;
+        hitBox.enabled = false;
 
         playerInput = transform.parent.GetComponent<PlayerInput>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PrepareNextAttack(50, 10, 10, new Vector3(0.33f, 0.33f, 0.33f), 0.5f);
-        }
-
         if (attackActive)
         {
 
@@ -59,8 +65,15 @@ public class PlayerAttackHitBox : MonoBehaviour
         {
             if (playerInput.MovementInput is { x: 0f, y: < 0f })
             {
-                Debug.Log($"Spinning... {ChargeDuration}");
+                //Debug.Log($"Spinning... {ChargeDuration}");
                 ChargeDuration += Time.deltaTime;
+
+                if (!chargeAniPlaying)
+                {
+                    Debug.Log("ani!");
+                    playerInput.anim.Play("_P1 Sprint");
+                    chargeAniPlaying = true;
+                }
             }
             else if (playerInput.MovementInput.x != 0f || playerInput.MovementInput.y >= 0f)
             {
@@ -76,24 +89,24 @@ public class PlayerAttackHitBox : MonoBehaviour
                 case > 0.66f:
                     isPerformingSpinAttack = true;
                     float duration = ChargeDuration * 0.5f;
-                    Mathf.Clamp(duration, 2f, 5f);
+                    Mathf.Clamp(duration, 2f, 4f);
 
-                    float damage = ChargeDuration * 4;
-                    Mathf.Clamp(damage, 1, 30);
+                    int damage = (int) Mathf.Floor(ChargeDuration * 8);
+                    Mathf.Clamp(damage, 1, 40);
 
-                    float Hforce = ChargeDuration * 10;
-                    float Vforce = ChargeDuration * 2;
+                    float Hforce = ChargeDuration * 60;
+                    float Vforce = ChargeDuration * 30;
 
                     PrepareNextAttack(damage, Hforce, Vforce, new Vector3(1.2f, 1f, 1f), duration);
                     Debug.Log($"Spin attack! Duration: {duration}, Damage: {damage}, Hforce: {Hforce}, Vforce: {Vforce}");
                     break;
-            }
-
+            } 
+            chargeAniPlaying = false;
             ChargeDuration = 0;
         }
     }
     
-    public void PrepareNextAttack(float _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration)
+    public void PrepareNextAttack(int _damage, float _Hforce, float _Vforce, Vector3 _size, float _duration)
     {
         attackDamage = _damage;
         
@@ -118,6 +131,11 @@ public class PlayerAttackHitBox : MonoBehaviour
         isPreparingSpinAttack = true;
     }
 
+    public void PreparePunchAttack()
+    {
+        PrepareNextAttack(15, 40, 20, new Vector3(0.8f, 0.5f, 1f), 1f);
+    }
+
     private void DeactivateAttack()
     {
         attackDamage = 0;
@@ -136,28 +154,33 @@ public class PlayerAttackHitBox : MonoBehaviour
             isPerformingSpinAttack = false;
         }
 
+        playerInput.anim.Play("_P1 Idle");
+
         // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = Vector3.zero;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Current: {gameObject.name}. Other: {other.gameObject.name}.");
-
         if (other.transform != transform.parent && other.transform.CompareTag("Player"))
         {
-            DeactivateAttack();
-
             // Direction is from the parent of the hitbox (which is the attacking player) to the other player.
             Vector3 normalizedDirection = Vector3.Normalize(other.transform.position - transform.parent.position);
 
-            Debug.DrawRay(transform.position, normalizedDirection * 5f, Color.red, 5f);
+            // Normalization done to get the direction of the knockback force, the y axis is added after as its likely the factor
+            // for the y axis is an extremely small number from a tiny y value difference.
+            Vector2 knockbackForce = new Vector2(attackHorizontalForce, 0) * normalizedDirection;
+            knockbackForce.y = attackVerticalForce;
 
-            Vector2 knockbackForce = new Vector2(attackHorizontalForce, attackVerticalForce);
-            // Other.TakeDamage();
+            other.gameObject.GetComponent<PlayerInput>().TakeDamage(attackDamage);
+            other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
+            
             StartCoroutine(other.gameObject.GetComponent<PlayerInput>().KnockbackVulnerability());
+
+            DeactivateAttack();
+            duration = 0f;
         }
     }
 }
