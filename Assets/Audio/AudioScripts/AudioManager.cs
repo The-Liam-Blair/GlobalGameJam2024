@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using System;
 using Random=UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -26,12 +27,25 @@ public class AudioManager : MonoBehaviour
     [Header("--- Scene Music ---")]
     public bool playFightMusic = false;
     public bool playMainMenuMusic = false;
+    public bool playVictoryMusic = false;
+    public bool playCreditsMusic = false;    
+    public bool musicIsActive = false;
 
 
-    
+
+    public static AudioManager instance;
 
 
     void Awake(){
+
+        if (instance == null)
+            instance = this;
+        else {
+            DestroyImmediate(this.gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+
         foreach (Sound s in sounds){
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
@@ -131,77 +145,128 @@ public class AudioManager : MonoBehaviour
 
     void Start(){
         //SOUNDS/MUSIC WANTING TO BE PLAYED FROM START SHOULD BE CALLED FROM HERE
+        /*
         if (playFightMusic){
             Sound s = Array.Find(Music, sound => sound.name == "IntroductoryMusic");
             s.source.Play();
             introductoryMusicIsPlaying = true;            
         }
+        */
         if (playMainMenuMusic){
             Sound s = Array.Find(Music, sound => sound.name == "MainMenuMusic");
             s.source.Play();
         }
+        
+        introFightMusic = Array.Find(Music, sound => sound.name == "IntroductoryMusic");
+        fightMusic = Array.Find(Music, sound => sound.name == "MainMusic");
+        introVictoryMusic = Array.Find(Music, sound => sound.name == "IntroVictoryMusic");
+        victoryMusic = Array.Find(Music, sound => sound.name == "VictoryMusic");
+        mainMenuMusic = Array.Find(Music, sound => sound.name == "MainMenuMusic");
+        creditsMusic = Array.Find(Music, sound => sound.name == "CreditsMusic");
+    }
 
-        introVicMusic = Array.Find(Music, sound => sound.name == "IntroVictoryMusic");
+    public Sound introFightMusic;
+    public Sound fightMusic;
 
+    public Sound introVictoryMusic;
+    public Sound victoryMusic;
+
+    public Sound mainMenuMusic;
+    public Sound creditsMusic;
+
+    void Update(){
+
+
+
+        //PLAYS FIGHT MUSIC
+        if (playFightMusic && !musicIsActive){
+            musicIsActive = true;
+            if (!introFightMusic.source.isPlaying){
+               introFightMusic.source.Play(); 
+            }
+            
+        } else if (playFightMusic && musicIsActive && !introFightMusic.source.isPlaying){
+            if (!fightMusic.source.isPlaying){
+                fightMusic.source.Play();
+            }
+        } 
+
+        //PLAYS VICTORY MUSIC
+        if (playVictoryMusic && !musicIsActive){
+            musicIsActive = true;
+            if (!introVictoryMusic.source.isPlaying){
+               introVictoryMusic.source.Play(); 
+            }
+            
+        } else if (playVictoryMusic && musicIsActive && !introVictoryMusic.source.isPlaying){
+            if (!victoryMusic.source.isPlaying){
+                victoryMusic.source.Play();
+            }
+        } 
+
+        //PLAYS MAIN MENU MUSIC
+        if (playMainMenuMusic && !musicIsActive){
+            musicIsActive = true;
+            if (!mainMenuMusic.source.isPlaying){
+               mainMenuMusic.source.Play(); 
+            }
+        }
+
+        //PLAYS CREDITS MUSIC
+        if (playCreditsMusic && !musicIsActive){
+            musicIsActive = true;
+            if (!creditsMusic.source.isPlaying){
+               creditsMusic.source.Play(); 
+            }
+        }
         
     }
 
-    void Update(){
-        PlayFightSceneMainMusic();
-        CheckifActivateVictoryLoop();
-    }
 
 
-
-
-
-
-    void PlayFightSceneMainMusic(){
-        if (playFightMusic){
-            Sound s = Array.Find(Music, sound => sound.name == "IntroductoryMusic");
-            if (s.source.isPlaying)
-            {
-                //Debug.Log("Music is playing");
-            } else if (!s.source.isPlaying && introductoryMusicIsPlaying){
-                introductoryMusicIsPlaying = false;
-                Sound s2 = Array.Find(Music, sound => sound.name == "MainMusic");
-                bool DoOnce = false;
-                if (!DoOnce){
-                    s2.source.Play();
-                    DoOnce = true;
-                }
-            }
-        }
-    }
-
-    public void StopFightSceneMainMusic(){
+    public void StopFightMusic(){
+        musicIsActive = false;
         playFightMusic = false;
-        Sound s = Array.Find(Music, sound => sound.name == "IntroductoryMusic");
-        s.source.Stop();
-        Sound s2 = Array.Find(Music, sound => sound.name == "MainMusic");
-        s2.source.Stop();     
-        Debug.Log("STOP FIGHT MUSIC");
+        fightMusic.source.Stop();
+        introFightMusic.source.Stop();
     }
 
-    private Sound introVicMusic;
-    private bool activateVictoryMusic = false;
-    public bool isIntroVicPlaying = false;
-
-    public void PlayVictorySceneMusic(){
-        if (!activateVictoryMusic){
-            introVicMusic.source.Play();
-            activateVictoryMusic = true;
-            isIntroVicPlaying = true;
-        }
+    public void StopVictoryMusic(){
+        musicIsActive = false;
+        playVictoryMusic = false;
+        victoryMusic.source.Stop();
+        introVictoryMusic.source.Stop();        
     }
 
-    void CheckifActivateVictoryLoop(){
-        if (isIntroVicPlaying && !introVicMusic.source.isPlaying){
-            isIntroVicPlaying = false;
-            Sound s = Array.Find(Music, sound => sound.name == "VictoryMusic");
-            s.source.Play();
-        }
+    public void StopMainMenuMusic(){
+        musicIsActive = false;
+        playMainMenuMusic = false;
+        mainMenuMusic.source.Stop();
     }
+
+    public void StopCreditsMusic(){
+        musicIsActive = false;
+        playCreditsMusic = false;
+        creditsMusic.source.Stop();
+    }
+
+
+
+        
+    public void TurnFightMusicOn(){
+        playFightMusic = true;
+    }
+
+    public void TurnMainMenuMusicOn(){
+        playMainMenuMusic = true;
+    }
+
+    public void TurnCreditsMusicOn(){
+        playCreditsMusic = true;
+    }
+
+
+
 
     //FOR CALLING SOUNDS FROM OTHER GAMEOBJECTS
     //FindObjectOfType<AudioManager>().Play("SoundName");

@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044423329406689871}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2044423329406689870
 MonoBehaviour:
@@ -233,13 +233,61 @@ MonoBehaviour:
     mixer: {fileID: 5431674808237557866, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
     source: {fileID: 0}
   - name: MainMenuMusic
-    clip: {fileID: 8300000, guid: dd7c4e214b845e24a85f0c5a18d3ba85, type: 3}
+    clip: {fileID: 8300000, guid: 022e8214e3eb54183a84fe569cec52cf, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    mixer: {fileID: 19659436595706344, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
+    source: {fileID: 0}
+  - name: CreditsMusic
+    clip: {fileID: 8300000, guid: 17b73924046aa4651ade643008634a35, type: 3}
     volume: 0.25
     pitch: 1
     loop: 1
     mixer: {fileID: 19659436595706344, guid: ac9d390a41890468f86d1f540db485ee, type: 2}
     source: {fileID: 0}
   victoryMusicDelay: 0
-  playFightMusic: 1
+  playFightMusic: 0
   playMainMenuMusic: 0
-  isIntroVicPlaying: 0
+  playVictoryMusic: 0
+  musicIsActive: 0
+  introFightMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}
+  fightMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}
+  introVictoryMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}
+  victoryMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}
+  mainMenuMusic:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    loop: 0
+    mixer: {fileID: 0}
+    source: {fileID: 0}

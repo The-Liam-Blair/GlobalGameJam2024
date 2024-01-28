@@ -4,32 +4,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuControlScript : MonoBehaviour
+public class SplashScreenScript : MonoBehaviour
 {
-
     public GameObject blackSquare;
-
-    private void Start()
+    private float timer = 0;
+    // Start is called before the first frame update
+    void Start()
     {
-        //        blackSquare.SetActive(true);
-        StartCoroutine(FadeOutToBlack());
+        
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        timer += 1 * Time.deltaTime;
+        if (timer > 3)
         {
-            StartCoroutine(FadeToBlack("Test"));
+            SceneManager.LoadScene("MainMenuScene");
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartCoroutine(FadeOutToBlack());
-        }
-
     }
-    public IEnumerator FadeToBlack(string sceneName, int speed = 1)
+
+    public IEnumerator FadeToBlack(int speed = 1)
     {
-     //   Debug.Log("Run Fade to Black");
+        //  Debug.Log("Run Fade to Black");
         // Fade to black then start new scene
         blackSquare.SetActive(true);
         Color objCol = blackSquare.GetComponent<Image>().color;
@@ -43,11 +40,11 @@ public class MenuControlScript : MonoBehaviour
         }
         // Now load scene
 
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene("MainMenuScene");
     }
     public IEnumerator FadeOutToBlack(int speed = 1)
     {
-      //  Debug.Log("Fade OUT to black");
+        //  Debug.Log("Fade OUT to black");
         blackSquare.SetActive(true);
         // Fade from black to play game
         Color objCol = blackSquare.GetComponent<Image>().color;
@@ -60,33 +57,9 @@ public class MenuControlScript : MonoBehaviour
             blackSquare.GetComponent<Image>().color = objCol;
             yield return null;
         }
+
         blackSquare.SetActive(false);
-
+        yield return null;
     }
-
-    public void playFunction()
-    {
-       // Debug.Log("Play");
-        StartCoroutine(FadeToBlack("GameUIScene"));
-//        SceneManager.LoadScene("GameScene");
-    }
-    public void instuctionFunction()
-    {
-     //   Debug.Log("Instruction");
-        StartCoroutine(FadeToBlack("InstructionsScene"));
-        //      SceneManager.LoadScene("InstructionsScene");
-    }
-    public void creditsFunction()
-    {
-     //   Debug.Log("Credits");
-        StartCoroutine(FadeToBlack("CreditsScene"));
-        //    SceneManager.LoadScene("CreditsScene");
-
-    }
-    public void exitFunction()
-    {
-      //  Debug.Log("Quit");
-        Application.Quit();
-    }
-
+    
 }
