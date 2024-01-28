@@ -70,8 +70,14 @@ public class PlayerAttackHitBox : MonoBehaviour
 
                 if (!chargeAniPlaying)
                 {
-                    Debug.Log("ani!");
-                    playerInput.anim.Play("_P1 Sprint");
+                    if (playerInput.player.id == 1)
+                    {
+                        playerInput.anim.Play("_P1 Sprint");
+                    }
+                    else
+                    {
+                        playerInput.anim.Play("_P2 Sprint");
+                    }
                     chargeAniPlaying = true;
                 }
             }
@@ -133,7 +139,7 @@ public class PlayerAttackHitBox : MonoBehaviour
 
     public void PreparePunchAttack()
     {
-        PrepareNextAttack(15, 40, 20, new Vector3(0.8f, 0.5f, 1f), 1f);
+        PrepareNextAttack(15, 30, 20, new Vector3(0.8f, 0.5f, 1f), 1f);
     }
 
     private void DeactivateAttack()
@@ -154,7 +160,14 @@ public class PlayerAttackHitBox : MonoBehaviour
             isPerformingSpinAttack = false;
         }
 
-        playerInput.anim.Play("_P1 Idle");
+        if (playerInput.player.id == 1)
+        {
+            playerInput.anim.Play("_P1 Idle");
+        }
+        else
+        {
+            playerInput.anim.Play("_P2 Idle");
+        }
 
         // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = Vector3.zero;
@@ -173,7 +186,14 @@ public class PlayerAttackHitBox : MonoBehaviour
             knockbackForce.y = attackVerticalForce;
 
             other.gameObject.GetComponent<PlayerInput>().TakeDamage(attackDamage);
-            other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
+            if (playerInput.player.id == 1)
+            {
+                other.gameObject.GetComponent<PlayerInput>().anim.Play("_P2 Launch");
+            }
+            else
+            {
+                other.gameObject.GetComponent<PlayerInput>().anim.Play("_P1 Launch");
+            }
 
             other.gameObject.GetComponent<Rigidbody>().AddForce(knockbackForce, ForceMode.Impulse);
             

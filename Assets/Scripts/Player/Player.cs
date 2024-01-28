@@ -51,6 +51,7 @@ public class Player
 
         AttackHitBox.transform.parent = playerObject.transform;
 
+
         switch (id)
         {
             case 1:

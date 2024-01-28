@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     public Vector2 MovementInput;
 
-    private Player player;
+    public Player player;
     private string XInput;
     private string YInput;
     private string PunchInput;
@@ -21,6 +21,8 @@ public class PlayerInput : MonoBehaviour
     private Player otherPlayer;
 
     public Animator anim;
+
+    public bool isDead = false;
 
     private void Start()
     {
@@ -38,12 +40,22 @@ public class PlayerInput : MonoBehaviour
 
         anim = GetComponent<Animator>();
 
+        if(player.id == 1)
+        {
+            anim.Play("_P1 Idle");
+        }
+        else
+        {
+            anim.Play("_P2 Idle");
+
+        }
+
         otherPlayer = manager.GetOtherPlayerReference(player.id);
     }
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 1.75f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 0.6f))
+        if (Physics.Raycast(transform.position + transform.right, Vector3.down, 1.75f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 1.75f))
         {
             IsTouchingGround = true;
             GravityMultiplier = 1f;
@@ -52,13 +64,13 @@ public class PlayerInput : MonoBehaviour
         {
             IsTouchingGround = false;
         }
-        Debug.DrawRay(transform.position + transform.right, Vector3.down * 0.51f, Color.red);
-        Debug.DrawRay(transform.position - transform.right, Vector3.down * 0.51f, Color.red);
+        Debug.DrawRay(transform.position + transform.right, Vector3.down * 1.75f, Color.red);
+        Debug.DrawRay(transform.position - transform.right, Vector3.down * 1.75f, Color.blue);
 
         if (!IsTouchingGround)
         {
             GravityMultiplier += 1.5f;
-            gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0, -4, 0) * GravityMultiplier, ForceMode.Acceleration);
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.down * 4 * GravityMultiplier, ForceMode.Acceleration);
         }
 
         MovementInput = Vector2.zero;
@@ -113,7 +125,14 @@ public class PlayerInput : MonoBehaviour
 
         if (otherPlayer.health <= 0)
         {
-            anim.Play("_P1 Laugh");
+            if (player.id == 1)
+            {
+                anim.Play("_P1 Laugh");
+            }
+            else
+            {
+                anim.Play("_P2 Laugh");
+            }
             GetComponent<Rigidbody>().detectCollisions = false;
             IsMovementDisabled = true;
         }
@@ -122,7 +141,15 @@ public class PlayerInput : MonoBehaviour
         {
             if (!player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
             {
-                anim.Play("_P1 Punch");
+                if (player.id == 1)
+                {
+                    anim.Play("_P1 Punch");
+                }
+
+                else
+                {
+                    anim.Play("_P2 Punch");
+                }
                 player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PreparePunchAttack();
             }
         }
@@ -150,7 +177,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
     
-    public IEnumerator KnockbackVulnerability(float duration = 1f)
+    public IEnumerator KnockbackVulnerability(float duration = 0.75f)
     {
         gameObject.GetComponent<Rigidbody>().drag = 5f;
         IsMovementDisabled = true; 
@@ -164,11 +191,19 @@ public class PlayerInput : MonoBehaviour
     private IEnumerator DeathAnimation()
     {
         yield return new WaitForSeconds(0.33f);
-        anim.Play("_P1 KO");
+        if (player.id == 1)
+        {
+            anim.Play("_P1 KO");
+        }
+        else
+        {
+            anim.Play("_P2 KO");
+        }
         IsMovementDisabled = true;
-        
-        yield return new WaitForSeconds(0.2f);
-        GetComponent<Rigidbody>().detectCollisions = false;
+        isDead = true;
+        GetComponent<BoxCollider>().size = new Vector3(2.55f, 1.75f, 1f);
+
+        yield return new WaitForSeconds(0.5f);
         yield return null;
     }
 }
