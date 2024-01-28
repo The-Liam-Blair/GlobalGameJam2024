@@ -140,7 +140,6 @@ public class PlayerAttackHitBox : MonoBehaviour
         hitBox.enabled = true;
         hitBox.size = attackHitBoxSize;
 
-        // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = _size;
     }
 
@@ -187,7 +186,6 @@ public class PlayerAttackHitBox : MonoBehaviour
             playerInput.anim.Play("_P2 Idle");
         }
 
-        // TEMPORARY TO VISUALIZE HITBOX SIZES - Remove later!
         gameObject.transform.localScale = Vector3.zero;
     }
 

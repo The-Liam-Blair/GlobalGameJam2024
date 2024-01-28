@@ -79,7 +79,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         MovementInput = Vector2.zero;
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -14f, 14f), transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -13f, 13f), transform.position.y, transform.position.z);
 
         if (!IsMovementDisabled)
         {
@@ -88,7 +88,7 @@ public class PlayerInput : MonoBehaviour
             // Velocity required for good and stable collisions between moving objects.
             // Velocity is set per frame, regardless of input, to halt all acceleration/deceleration after an input from RigidBody movement.
             gameObject.GetComponent<Rigidbody>().AddForce(MovementInput * MovementScalar);
-            
+
             MovementInput.y = Input.GetAxisRaw(YInput);
         }
 
