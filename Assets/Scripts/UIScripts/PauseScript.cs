@@ -1,13 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseScript : MonoBehaviour
 {
     private bool paused;
 
     private int selected;
+    public RawImage selector;
+
+    public TMP_Text button1;
+    public TMP_Text button2;
+
+    public GameObject pauseMenu;
 
     void Start()
     {
@@ -22,30 +30,62 @@ public class PauseScript : MonoBehaviour
             {
                 Time.timeScale = 0;
                 paused = true;
+                pauseMenu.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1;
                 paused = false;
+                pauseMenu.SetActive(false);
             }
         }
 
-        if (paused == true && Input.GetKeyDown(KeyCode.E))
+        if (paused == true)
         {
-            if (selected == 1)
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                //Resume
-                Time.timeScale = 1;
+                if (selected == 1)
+                {
+                    selected = 2;
+                    selector.transform.position = new Vector3(button2.transform.position.x - 5, button2.transform.position.y, button2.transform.position.z);
+                }
+                else
+                {
+                    selected = 1;
+                    selector.transform.position = new Vector3(button1.transform.position.x - 5, button1.transform.position.y, button1.transform.position.z);
+                }
             }
-            else if (selected == 2)
+            if (Input.GetKeyDown(KeyCode.S))
             {
-                //Restart
-                SceneManager.LoadScene("GameUIScene");
-            }
-            else
-            {
-                //Menu
-                SceneManager.LoadScene("MainMenuScene");
+                if (selected == 1)
+                {
+                    selected = 2;
+                    selector.transform.position = new Vector3(button2.transform.position.x - 5, button2.transform.position.y, button2.transform.position.z);
+                }
+                else
+                {
+                    selected = 1;
+                    selector.transform.position = new Vector3(button1.transform.position.x - 5, button1.transform.position.y, button1.transform.position.z);
+                }
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (selected == 1)
+                    {
+                        //Resume
+                        Time.timeScale = 1;
+                    }
+                    else if (selected == 2)
+                    {
+                        //Restart
+                        SceneManager.LoadScene("GameUIScene");
+                    }
+                    else
+                    {
+                        //Menu
+                        SceneManager.LoadScene("MainMenuScene");
+                    }
+                }
             }
         }
     }

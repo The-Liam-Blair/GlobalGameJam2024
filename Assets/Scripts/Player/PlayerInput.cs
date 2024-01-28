@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
     private string XInput;
     private string YInput;
     private string PunchInput;
+    private string KickInput;
 
     private float MovementScalar;
 
@@ -33,6 +34,7 @@ public class PlayerInput : MonoBehaviour
         XInput = player.horizontalInput;
         YInput = player.verticalInput;
         PunchInput = player.PunchInput;
+        KickInput = player.KickInput;
 
         // Movement speed multiplier of the player.
         MovementScalar = 120;
@@ -74,6 +76,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         MovementInput = Vector2.zero;
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -28, 28), transform.position.y, transform.position.z);
 
         if (!IsMovementDisabled)
         {
@@ -82,7 +85,7 @@ public class PlayerInput : MonoBehaviour
             // Velocity required for good and stable collisions between moving objects.
             // Velocity is set per frame, regardless of input, to halt all acceleration/deceleration after an input from RigidBody movement.
             gameObject.GetComponent<Rigidbody>().AddForce(MovementInput * MovementScalar);
-
+            
             MovementInput.y = Input.GetAxisRaw(YInput);
         }
 
@@ -99,16 +102,25 @@ public class PlayerInput : MonoBehaviour
             
         }
 
+        if (MovementInput.x > 0 && IsTouchingGround)
+        {
+            //FindObjectOfType<AudioManager>().PlayerFootSteps();
+        }
+
         // Set facing direction to movement direction.
         // Note that a speed of 0 does not change the facing direction, retaining the last direction.
         switch (MovementInput.x)
         {
             case > 0:
+
                 player.isFacingRight = true;
+                player.playerObject.transform.rotation = Quaternion.Euler(0, player.id == 1 ? 0 : 180, 0);
                 break;
 
             case < 0:
                 player.isFacingRight = false;
+                player.playerObject.transform.rotation = Quaternion.Euler(0, player.id == 1 ? 180 : 0,  0);
+
                 break;
         }
 
@@ -151,6 +163,24 @@ public class PlayerInput : MonoBehaviour
                     anim.Play("_P2 Punch");
                 }
                 player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PreparePunchAttack();
+            }
+        }
+        else if (Input.GetAxisRaw(KickInput) > 0 &&
+                 !player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
+        {
+            if (!player.AttackHitBox.GetComponent<PlayerAttackHitBox>().attackActive)
+            {
+                if (player.id == 1)
+                {
+                    anim.Play("_P1 Kick");
+                }
+
+                else
+                {
+                    anim.Play("_P2 Kick");
+                }
+
+                player.AttackHitBox.GetComponent<PlayerAttackHitBox>().PrepareKickAttack();
             }
         }
     }
