@@ -113,10 +113,10 @@ TextureImporter:
       name: P2 Sprint Redo_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 418
-        width: 390.66666
-        height: 418
+        x: 27
+        y: 449
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: P2 Sprint Redo_1
       rect:
         serializedVersion: 2
-        x: 390
-        y: 418
-        width: 390.66666
-        height: 418
+        x: 439
+        y: 437
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,10 +155,10 @@ TextureImporter:
       name: P2 Sprint Redo_2
       rect:
         serializedVersion: 2
-        x: 780
-        y: 418
-        width: 390.66666
-        height: 418
+        x: 807
+        y: 449
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,10 +176,10 @@ TextureImporter:
       name: P2 Sprint Redo_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 390.66666
-        height: 418
+        x: 27
+        y: 31
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,10 +197,10 @@ TextureImporter:
       name: P2 Sprint Redo_4
       rect:
         serializedVersion: 2
-        x: 390
-        y: 0
-        width: 390.66666
-        height: 418
+        x: 439
+        y: 19
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: P2 Sprint Redo_5
       rect:
         serializedVersion: 2
-        x: 780
-        y: 0
-        width: 390.66666
-        height: 418
+        x: 827
+        y: 25
+        width: 305
+        height: 367
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

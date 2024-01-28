@@ -43,7 +43,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756496609953153847}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1318211cef24a604492920c096bdbab1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementInput: {x: 0, y: 0}
   anim: {fileID: 0}
+  isDead: 0
 --- !u!54 &7216370070175623590
 Rigidbody:
   m_ObjectHideFlags: 0
