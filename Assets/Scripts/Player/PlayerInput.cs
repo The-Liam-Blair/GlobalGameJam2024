@@ -58,6 +58,12 @@ public class PlayerInput : MonoBehaviour
         otherPlayer = manager.GetOtherPlayerReference(player.id);
     }
 
+    private void OnBecameInvisible()
+    {
+        player.TakeDamage(101);
+        Die();
+    }
+
     private void FixedUpdate()
     {
         if (Physics.Raycast(transform.position + transform.right, Vector3.down, 1.75f) || Physics.Raycast(transform.position - transform.right, Vector3.down, 1.75f))
