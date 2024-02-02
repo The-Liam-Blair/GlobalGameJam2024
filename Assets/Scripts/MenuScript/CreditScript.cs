@@ -1,22 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CreditScript : MonoBehaviour
 {
     public GameObject gm;
-    // Start is called before the first frame update
+    private float timer = 0;
+    private float speed;
+
     void Start()
     {
+        // calculate the speed of the credits based on screen hight 
+        // this helps keep it consistet across screen sizes
+        speed = Screen.height / 10;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 20f * Time.deltaTime);
-        if (transform.position.y > 800)
+        timer += 1 * Time.deltaTime;
+        if (timer > 25)
         {
             gm.GetComponent<ExitMenusScript>().ExitCredits();
         }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y + (speed * Time.deltaTime), transform.position.z);
     }
 }
